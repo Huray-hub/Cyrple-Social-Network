@@ -19,6 +19,8 @@ axios.interceptors.response.use(undefined, error => {
     history.push("/notfound");
 
   if (status === 500) toast.error("Server error - check the terminal for more info");
+
+  throw error;
 });
 
 const sleep = (ms: number) => (response: AxiosResponse) =>
