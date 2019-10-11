@@ -1,13 +1,10 @@
 import axios, { AxiosResponse } from "axios";
 import { IActivity } from "../models/activity";
-import { IPromise } from "q";
 import { history } from "../..";
 import { toast } from "react-toastify";
 import { IUser, IUserFormValues } from "../models/user";
 
 axios.defaults.baseURL = "http://localhost:5000/api";
-
-const responseBody = (response: AxiosResponse) => response.data;
 
 axios.interceptors.request.use(
   config => {
@@ -34,6 +31,8 @@ axios.interceptors.response.use(undefined, error => {
 
   throw error.response;
 });
+
+const responseBody = (response: AxiosResponse) => response.data;
 
 const sleep = (ms: number) => (response: AxiosResponse) =>
   new Promise<AxiosResponse>(resolve => setTimeout(() => resolve(response), ms));
@@ -62,17 +61,19 @@ const requests = {
 };
 
 const Activities = {
-  list: (): IPromise<IActivity[]> => requests.get("/activities"),
+  list: (): Promise<IActivity[]> => requests.get("/activities"),
   details: (id: string) => requests.get(`/activities/${id}`),
   create: (activity: IActivity) => requests.post("/activities", activity),
   update: (activity: IActivity) => requests.put(`/activities/${activity.id}`, activity),
-  delete: (id: string) => requests.del(`/activities/${id}`)
+  delete: (id: string) => requests.del(`/activities/${id}`),
+  attend: (id: string) => requests.post(`/activities/${id}/attend`, {}),
+  unattend: (id:string) => requests.del(`/activities/${id}/attend`)
 };
 
 const User = {
-  current: (): IPromise<IUser> => requests.get("/users"),
-  login: (user: IUserFormValues): IPromise<IUser> => requests.post("/users/login", user),
-  register: (user: IUserFormValues): IPromise<IUser> => requests.post("/users/register", user)
+  current: (): Promise<IUser> => requests.get("/users"),
+  login: (user: IUserFormValues): Promise<IUser> => requests.post("/users/login", user),
+  register: (user: IUserFormValues): Promise<IUser> => requests.post("/users/register", user)
 };
 
 export default {

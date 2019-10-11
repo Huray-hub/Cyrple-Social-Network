@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections;
+﻿using Domain;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace Domain
+namespace Application.Dtos
 {
-    public class Activity
+    public class ActivityDto
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
@@ -14,6 +16,7 @@ namespace Domain
         public string City { get; set; }
         public string Venue { get; set; }
 
-        public virtual ICollection<UserActivity> UserActivities { get; set; }
+        [JsonProperty("attendees")]
+        public ICollection<AttendeeDto> UserActivities { get; set; }
     }
 }
