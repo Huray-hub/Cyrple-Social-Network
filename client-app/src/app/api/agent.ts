@@ -67,13 +67,13 @@ const Activities = {
   update: (activity: IActivity) => requests.put(`/activities/${activity.id}`, activity),
   delete: (id: string) => requests.del(`/activities/${id}`),
   attend: (id: string) => requests.post(`/activities/${id}/attend`, {}),
-  unattend: (id:string) => requests.del(`/activities/${id}/attend`)
+  unattend: (id: string) => requests.del(`/activities/${id}/attend`)
 };
 
 const User = {
   current: (): Promise<IUser> => requests.get("/users"),
-  login: (user: IUserFormValues): Promise<IUser> => requests.post("/users/login", user),
-  register: (user: IUserFormValues): Promise<IUser> => requests.post("/users/register", user)
+  login: (user: IUserFormValues): Promise<IUser> => requests.post(`/users/login`, user),
+  register: (user: IUserFormValues): Promise<IUser> => requests.post(`/users/register`, user)
 };
 
 export default {

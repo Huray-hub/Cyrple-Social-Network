@@ -44,7 +44,7 @@ export default class ActivityStore {
       const activities = await agent.Activities.list();
       runInAction("loading activities", () => {
         activities.forEach(activity => {
-          setActivityProps(activity, this.rootStore.userStore.user!);
+          setActivityProps(activity, this.rootStore.userStore.user!);        
           this.activityRegistry.set(activity.id, activity);
         });
         this.loadingInitial = false;
@@ -53,23 +53,23 @@ export default class ActivityStore {
       runInAction("load activities error", () => {
         this.loadingInitial = false;
       });
-      console.log(error)
+      console.log(error);
     }
   };
 
-  @action loadActivity = async (id: string) => {
+  @action loadActivity = async (id: string) => {   
     let activity = this.getActivity(id);
     if (activity) {
       this.activity = activity;
       return activity;
     } else {
+      this.loadingInitial = true;
       try {
-        this.loadingInitial = true;
         activity = await agent.Activities.details(id);
         runInAction("loading activity", () => {
-          setActivityProps(activity, this.rootStore.userStore.user!);
+          setActivityProps(activity, this.rootStore.userStore.user!);       
           this.activity = activity;
-          this.activityRegistry.set(activity.id, activity);
+          this.activityRegistry.set(activity.id, activity);         
           this.loadingInitial = false;
         });
         return activity;
@@ -99,7 +99,7 @@ export default class ActivityStore {
       let attendees = [];
       attendees.push(attendee);
       activity.attendees = attendees;
-      activity.isHost = true; 
+      activity.isHost = true;
       runInAction("creating activity", () => {
         this.activityRegistry.set(activity.id, activity);
         this.submitting = false;
@@ -170,6 +170,7 @@ export default class ActivityStore {
         this.loading = false;
       });
       toast.error("Problem signing up to activity");
+      console.log(error);
     }
   };
 
@@ -190,7 +191,7 @@ export default class ActivityStore {
     } catch (error) {
       runInAction(() => {
         this.loading = false;
-      })
+      });
       toast.error("Problem cancelling attendance");
     }
   };

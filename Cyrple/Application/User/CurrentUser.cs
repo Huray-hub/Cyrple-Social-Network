@@ -2,10 +2,6 @@
 using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Persistence;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -36,7 +32,7 @@ namespace Application.User
                 return new User
                 {
                     DisplayName = user.DisplayName,
-                    UserName = user.UserName,
+                    Username = user.UserName,
                     Token = _jwtGenerator.CreateToken(user),
                     Image = null
                 };

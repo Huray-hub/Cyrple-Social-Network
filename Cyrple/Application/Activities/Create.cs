@@ -75,9 +75,9 @@ namespace Application.Activities
 
                 _context.UserActivities.Add(attendee);
                 
-                var successs = await _context.SaveChangesAsync() > 0;
+                var success = await _context.SaveChangesAsync() > 0;
 
-                if (successs) return Unit.Value;
+                if (success) return Unit.Value;
 
                 throw new Exception("Problem saving changes");
             }

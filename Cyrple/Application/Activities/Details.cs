@@ -3,7 +3,6 @@ using Application.Errors;
 using AutoMapper;
 using Domain;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Persistence;
 using System;
 using System.Net;
