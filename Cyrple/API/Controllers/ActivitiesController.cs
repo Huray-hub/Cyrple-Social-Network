@@ -12,23 +12,14 @@ namespace API.Controllers
     public class ActivitiesController : BaseController
     {
         [HttpGet]
-        public async Task<ActionResult<List<ActivityDto>>> List()
-        {
-            return await Mediator.Send(new List.Query());
-        }
+        public async Task<ActionResult<List<ActivityDto>>> List() => await Mediator.Send(new List.Query());
 
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<ActionResult<ActivityDto>> Details(Guid id)
-        {
-            return await Mediator.Send(new Details.Query{ Id = id });
-        }
+        public async Task<ActionResult<ActivityDto>> Details(Guid id) => await Mediator.Send(new Details.Query { Id = id });
 
         [HttpPost]
-        public async Task<ActionResult<Unit>> Create(Create.Command command)
-        {
-            return await Mediator.Send(command);
-        }
+        public async Task<ActionResult<Unit>> Create(Create.Command command) => await Mediator.Send(command);
 
         [HttpPut("{id}")]
         [Authorize(Policy = "IsActivityHost")]
@@ -40,21 +31,12 @@ namespace API.Controllers
 
         [HttpDelete("{id}")]
         [Authorize(Policy = "IsActivityHost")]
-        public async Task<ActionResult<Unit>> Delete(Guid id)
-        {
-            return await Mediator.Send(new Delete.Command { Id = id });
-        }
+        public async Task<ActionResult<Unit>> Delete(Guid id) => await Mediator.Send(new Delete.Command { Id = id });
 
         [HttpPost("{id}/attend")]
-        public async Task<ActionResult<Unit>> Attend(Guid id)
-        {
-            return await Mediator.Send(new Attend.Command { Id = id });
-        }
+        public async Task<ActionResult<Unit>> Attend(Guid id) => await Mediator.Send(new Attend.Command { Id = id });
 
         [HttpDelete("{id}/attend")]
-        public async Task<ActionResult<Unit>> Unattend(Guid id)
-        {
-            return await Mediator.Send(new Unattend.Command { Id = id });
-        }
+        public async Task<ActionResult<Unit>> Unattend(Guid id) => await Mediator.Send(new Unattend.Command { Id = id });
     }
 }
